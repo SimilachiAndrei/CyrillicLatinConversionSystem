@@ -3,6 +3,7 @@ from PIL import Image
 import re
 
 
+# 378
 def image_to_cyrillic_text(image_path):
     """
     Extract Cyrillic text from a PNG image and prepare it for transliteration.
@@ -39,16 +40,12 @@ def image_to_cyrillic_text(image_path):
 
 if __name__ == "__main__":
     # Example usage
-    image_path = "catehism/1.png"  # Change to your image path
     try:
-        cyrillic_text = image_to_cyrillic_text(image_path)
-        print("Extracted Cyrillic Text:")
-        print(cyrillic_text)
-
-        # Save to file for your transliterator
-        with open("extracted_text.txt", "w", encoding="utf-8") as f:
-            f.write(cyrillic_text)
-        print("\nText saved to 'extracted_text.txt'")
-
+        for i in range(1, 379):
+            image_path = "catehism/" + str(i) + ".png"
+            cyrillic_text = image_to_cyrillic_text(image_path)
+            text_path = "text_catehism/" + str(i) + ".txt"
+            with open(text_path, "w", encoding="utf-8") as f:
+                f.write(cyrillic_text)
     except Exception as e:
         print(f"Error: {str(e)}")
