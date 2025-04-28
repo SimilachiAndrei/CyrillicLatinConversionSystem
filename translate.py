@@ -86,12 +86,15 @@ def romanian_cyrillic_to_latin(text):
 
     return text
 
-
-# Example usage
-text_cyr = '''
-Въtru începuтъ Думнеѕеу ау фăкутъ чєрул ши пămîнтул.
-Ши пămîнтул ера нетокмит ши гол, ши ынтунєрик ера пре фаца адынкулуй.
-Ши Духул луй Думнеѕеу се пурта престе апє.'''
-cyrillic_text = "Аꙁ҄ѣстъ сѫнтъ кѣтева ꙗрѣ лꙋмѣ."  # Example old Romanian text
-latin_text = romanian_cyrillic_to_latin(text_cyr)
-print(latin_text)
+if __name__ == "__main__":
+    try:
+        for i in range(1, 379):
+            text_path = "text_catehism/" + str(i) + ".txt"
+            with open(text_path, "r", encoding="utf-8") as f:
+                cyrillic_text = f.read()
+            latin_text = romanian_cyrillic_to_latin(cyrillic_text)
+            latin_path = "transliterated_catehism/" + str(i) + ".txt"
+            with open(latin_path, "w", encoding="utf-8") as f:
+                f.write(latin_text)
+    except Exception as e:
+        print(f"Error: {str(e)}")
