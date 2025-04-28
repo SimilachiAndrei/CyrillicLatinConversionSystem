@@ -42,9 +42,9 @@ if __name__ == "__main__":
     # Example usage
     try:
         for i in range(1, 379):
-            image_path = "catehism/" + str(i) + ".png"
+            image_path = "data/catehism/" + str(i) + ".png"
             cyrillic_text = image_to_cyrillic_text(image_path)
-            text_path = "text_catehism/" + str(i) + ".txt"
+            text_path = "data/text_catehism/" + str(i) + ".txt"
             with open(text_path, "w", encoding="utf-8") as f:
                 f.write(cyrillic_text)
     except Exception as e:
