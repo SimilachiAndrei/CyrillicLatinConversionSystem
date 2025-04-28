@@ -39,7 +39,7 @@ def image_to_cyrillic_text(image_path):
 
 if __name__ == "__main__":
     # Example usage
-    image_path = "1.png"  # Change to your image path
+    image_path = "catehism/1.png"  # Change to your image path
     try:
         cyrillic_text = image_to_cyrillic_text(image_path)
         print("Extracted Cyrillic Text:")
