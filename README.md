@@ -1,3 +1,1 @@
-Cerinta proiect: https://edu.info.uaic.ro/tehnici-prelucrare-limbaj-natural/labs/5.pdf
-
-(Imaginile sursa nu sunt in Cyrillic normal, ci in Old Church Slavonic)
+Cerinta proiect: construiti o aplicatie care isi face o baza de date cu articole legate de alegerile prezidentiale din Romania si detecteaza articolele false
