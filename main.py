@@ -1,39 +1,23 @@
 import pandas as pd
-import re
-import nltk
-from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
-# Load your data
-train_data = pd.read_csv('data/train.csv')
-validation_data = pd.read_csv('data/validation.csv')
-test_data = pd.read_csv('data/test.csv')
+# 1. Load
+train = pd.read_csv('./data/train_preprocessed.csv').dropna(subset=['processed_text'])
+test  = pd.read_csv('./data/test_preprocessed.csv').dropna(subset=['processed_text'])
 
-# Handle missing values in content column
-train_data['content'] = train_data['content'].fillna('')  # replace NaN with empty string
+# 2. Vectorize
+vectorizer = TfidfVectorizer()
+X_train = vectorizer.fit_transform(train['processed_text'])
+X_test  = vectorizer.transform(test['processed_text'])
 
-# Visualize text length distribution
-train_data['text_length'] = train_data['content'].apply(len)  # create new column for length
+# 3. Train on ALL of train_data
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, train['label'])
 
-print(train_data.head())
+# 4. Evaluate on test_data
+test_preds = model.predict(X_test)
+test_acc   = accuracy_score(test['label'], test_preds)
 
-nltk.download('stopwords')
-romanian_stopwords = set(stopwords.words('romanian'))
-
-def preprocess_text(text):
-    # Convert to lowercase
-    text = text.lower()
-
-    # Remove special characters and numbers
-    text = re.sub(r'[^\w\s]', '', text)
-    text = re.sub(r'\d+', '', text)
-
-    # Remove stopwords
-    words = text.split()
-    filtered_words = [word for word in words if word not in romanian_stopwords]
-
-    return ' '.join(filtered_words)
-
-# Apply preprocessing
-train_data['processed_text'] = train_data['content'].apply(preprocess_text)
-
-print(train_data['processed_text'].head())
+print(f"Test accuracy: {test_acc:.3f}")
